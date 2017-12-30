@@ -6,9 +6,10 @@
   <style>
     body{font-size:13px; font-family: Arial;}
     h1 {font-size:14px; border-bottom:1px solid #ddd; padding: 0 0 5px;}
-    ul {list-style-type: none; padding:0: margin:0 0 5px;}
+    ul {list-style-type: none; padding:0; margin:0 0 5px;}
     ul > li{padding: 0 0 5px;}
     input[type=text]{padding: 4px; border-radius: :4px;}
+    .done{ text-decoration: line-through; color:#aaa;}
   </style>
 </head>
 <body>
@@ -17,17 +18,9 @@
         MyApp
       </h1>
         <ul>
-          <li>
-            <input type="checkbox">
-            Task1
-          </li>
-          <li>
-            <input type="checkbox">
-            Task2
-          </li>
-          <li>
-            <input type="checkbox">
-            Task3
+          <li v-repeat="todos">
+            <input type="checkbox" v-attr="checked: done" v-on="click:done= !done">
+              <span v-class="done: done">{{task}}</span>
           </li>
         </ul>
         <input type="text" placeholder="new task...">
@@ -38,21 +31,12 @@
   var vm = new Vue({
     el: '#myapp',
     data: {
-      side:20,
-    },
-    computed:{
-      //area:function(){
-      //  return this.side * this.side;
-      //}
-      area:{
-            get: function(){
-              return this.side * this.side;
-              },
-            set: function(v){
-              this.side=Math.sqrt(v);
-            }
+        todos: [
+          {task: 'task 1', done: false},
+          {task: 'task 2', done: true},
+          {task: 'task 3', done: false}
+        ]
       }
-    }
   });
   </script>
 </body>
